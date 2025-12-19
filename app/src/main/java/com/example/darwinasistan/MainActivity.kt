@@ -52,14 +52,12 @@ class MainActivity : AppCompatActivity() {
 
         drawerLayout = findViewById(R.id.drawerLayout)
         navView = findViewById(R.id.navView)
-        // ✅ MODERN GERİ TUŞU YÖNETİMİ (Buraya Ekledik)
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
 
                 if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                     drawerLayout.closeDrawer(GravityCompat.START)
                 } else {
-                    // Eğer Menü Kapalıysa -> Standart geri işlemini yap (Çıkış vb.)
                     isEnabled = false
                     onBackPressedDispatcher.onBackPressed()
                 }
