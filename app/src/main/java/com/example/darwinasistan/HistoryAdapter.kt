@@ -28,13 +28,12 @@ class HistoryAdapter(private val items: List<HistoryItem>) :
         holder.description.text = item.description
         holder.timestamp.text = item.timestamp
 
-        // İkonu ayarla
+
         holder.icon.setImageResource(item.iconResId)
 
-        // İkon rengini temamızdaki neon_coral rengiyle filtrele
         holder.icon.setColorFilter(ContextCompat.getColor(holder.icon.context, R.color.neon_coral))
     }
 
-    // Listenin kaç elemanı olduğunu döndür
+
     override fun getItemCount() = items.size
 }

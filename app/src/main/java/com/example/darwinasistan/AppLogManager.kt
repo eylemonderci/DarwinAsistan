@@ -16,12 +16,10 @@ object AppLogManager {
         return formatter.format(Date())
     }
 
-    // --- 💾 VERİLERİ TELEFONA KAYDET ---
     fun saveData(context: Context) {
         val sharedPrefs = context.getSharedPreferences("DarwinData", Context.MODE_PRIVATE)
         val editor = sharedPrefs.edit()
 
-        // Gson ile Listeyi -> String'e (JSON) çeviriyoruz
         val gson = Gson()
         val jsonString = gson.toJson(historyLog)
 
@@ -29,7 +27,6 @@ object AppLogManager {
         editor.apply()
     }
 
-    // --- 📂 VERİLERİ TELEFONDAN GERİ YÜKLE ---
     fun loadData(context: Context) {
         val sharedPrefs = context.getSharedPreferences("DarwinData", Context.MODE_PRIVATE)
         val jsonString = sharedPrefs.getString("history_list", null)
@@ -41,7 +38,6 @@ object AppLogManager {
         }
     }
 
-    // --- 🧹 TEMİZLE VE KAYDET ---
     fun clearHistory(context: Context) {
         historyLog.clear()
         saveData(context) // Boş halini kaydet

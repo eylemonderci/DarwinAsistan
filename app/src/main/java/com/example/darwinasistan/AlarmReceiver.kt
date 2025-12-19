@@ -13,25 +13,17 @@ class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
 
-        // 1. AYARLARI KONTROL ET 🧐
-        // Kullanıcı "Bildirim Sesleri" anahtarını kapatmış mı?
         val sharedPrefs = context.getSharedPreferences("DarwinPrefs", Context.MODE_PRIVATE)
         val isSoundEnabled = sharedPrefs.getBoolean("sound_enabled", true) // Varsayılan: Açık
 
-        // Eğer kullanıcı kapatmışsa, fonksiyonu burada bitir (Bildirim gönderme)
         if (!isSoundEnabled) {
             return
         }
-
-        // -----------------------------------------------------------
-        // Kullanıcı İzin Verdiyse Bildirimi Hazırla
-        // -----------------------------------------------------------
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val channelId = "feed_alarm_channel"
         val channelName = "Yemleme Alarmı"
 
-        // Kanal Oluştur (Android 8.0+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
@@ -57,7 +49,7 @@ class AlarmReceiver : BroadcastReceiver() {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        // Bildirimi Yapılandır
+        // Bildirimi Yapılandırma
         val builder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.ic_alarm)
             .setContentTitle("Darwin Acıktı! 🐟")
@@ -67,7 +59,6 @@ class AlarmReceiver : BroadcastReceiver() {
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
 
-        // Gönder
         notificationManager.notify(101, builder.build())
     }
 }

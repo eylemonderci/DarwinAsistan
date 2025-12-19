@@ -19,17 +19,14 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
         supportActionBar?.hide()
 
-        // UI Elemanları
         val tvBack = findViewById<TextView>(R.id.tvSettingsTitle)
         val switchSound = findViewById<MaterialSwitch>(R.id.switchSound)
         val cardClearData = findViewById<MaterialCardView>(R.id.cardClearData)
 
-        // 1. GERİ DÖNÜŞ (Modern Yöntem)
         tvBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        // 2. BİLDİRİM SESİ AYARI
         val sharedPrefs = getSharedPreferences("DarwinPrefs", Context.MODE_PRIVATE)
         switchSound.isChecked = sharedPrefs.getBoolean("sound_enabled", true)
 
@@ -40,21 +37,19 @@ class SettingsActivity : AppCompatActivity() {
             showThemedSnackbar(message)
         }
 
-        // 3. GEÇMİŞİ TEMİZLEME
+
         cardClearData.setOnClickListener {
             showDeleteConfirmationDialog()
         }
     }
 
-    // --- TEMAYA UYGUN SNACKBAR FONKSİYONU ---
     private fun showThemedSnackbar(message: String) {
         val rootView = findViewById<View>(android.R.id.content)
         val snackbar = Snackbar.make(rootView, message, Snackbar.LENGTH_SHORT)
 
-        // Arka plan rengini deep_water (Koyu Lacivert) yap
+
         snackbar.view.setBackgroundColor(ContextCompat.getColor(this, R.color.deep_water))
 
-        // Yazı rengini Beyaz yap
         val textView = snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
         textView.setTextColor(Color.WHITE)
 
